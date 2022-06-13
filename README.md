@@ -1,4 +1,4 @@
-# spotify
+# Spotify Artists Search
 
 ## Project setup
 ```
@@ -15,10 +15,5 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### NOTE: Base URL
+When executing the app, make sure the base url is "http://localhost:8080"
