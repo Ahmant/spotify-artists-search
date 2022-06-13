@@ -44,11 +44,12 @@
                         />
                     </transition-group>
                 </div>
-                
+
                 <div v-if="noMoreArtistsFound" class="my-6">
                     <p class="font-semibold text-center">No more artists found</p>
                 </div>
                 <div v-else class="text-center my-6">
+                    <!-- The "Load More" button is included in case the loaded items didn't fill the screen or exceed it (in which case the scrollbar will not show), the user can click the button to load more. -->
                     <button
                         class="bg-primary hover:bg-primary-hover text-body rounded-full w-max font-bold text-lg px-4 py-1outline-all-0"
                         @click="searchNext()"

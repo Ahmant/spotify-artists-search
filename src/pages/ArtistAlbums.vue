@@ -20,6 +20,7 @@
             <p class="font-semibold text-center">No more albums found</p>
         </div>
         <div v-else class="text-center my-6">
+            <!-- The "Load More" button is included in case the loaded items didn't fill the screen or exceed it (in which case the scrollbar will not show), the user can click the button to load more. -->
             <button
                 class="
                     bg-primary
