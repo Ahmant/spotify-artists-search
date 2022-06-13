@@ -32,7 +32,7 @@
             "
             @click="login()"
         >
-            <span class="font-semibold text-xl">Login</span>
+            <span class="font-semibold text-xl">Login with Spotify</span>
             <span class="absolute top-1/2 transform -translate-y-1/2 right-5 text-4xl text-primary">
                 <i class="fa-brands fa-spotify"></i>
             </span>

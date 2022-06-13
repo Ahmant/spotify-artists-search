@@ -45,7 +45,7 @@ const routes = [
 				name: "artists",
 				component: ArtistsSearch,
 				meta: {
-					title: "Artists",
+					title: "Artist Search",
 					middleware: AuthMiddleware
 				}
 			},

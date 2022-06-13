@@ -7,7 +7,7 @@
         </div>
         <div class="p-2">
             <h4 class="font-semibold">{{ props.name }}</h4>
-            <p class="text-xs">{{ props.artistName }}</p>
+            <p class="text-xs">{{ getArtistsNames(props.artists) }}</p>
         </div>
 
         <div class="mb-24"></div>
@@ -30,10 +30,20 @@
 
     const props = defineProps({
         name: String,
-        artistName: String,
+        artists: Object,
         link: String,
         releaseDate: String,
         tracks: Number,
         image: Object,
     });
+
+    function getArtistsNames() {
+        let namesArray = [];
+
+        (props.artists || []).forEach(artist => {
+            namesArray.push(artist.name)
+        });
+
+        return namesArray.join(', ');
+    }
 </script>

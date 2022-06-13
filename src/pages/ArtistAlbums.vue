@@ -11,7 +11,7 @@
                 :tracks="album.total_tracks"
                 :releaseDate="album.release_date"
                 :image="album.images[0]"
-                :artistName="album.artists[0].name"
+                :artists="album.artists"
                 :link="album.external_urls.spotify"
             />
         </div>
