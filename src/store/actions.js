@@ -114,17 +114,20 @@ export default {
 				dispatch("stopLoader");
 			});
 	},
-	async getArtists({ commit, dispatch }, searchText) {
+	async getArtists({ commit, dispatch }, { searchText, offset, overrideData = true }) {
 		if (!searchText) {
 			commit('setArtists', null);
 			return;
 		}
 
 		dispatch("startLoader");
+		commit('setIsGettingArtists', true)
+		commit('setNoMoreArtistsFound', false)
 
 		let parameters = new URLSearchParams({
 			q: searchText,
 			include_external: true,
+			offset: offset || 0,
 			type: "artist",
 		}).toString();
 
@@ -139,19 +142,41 @@ export default {
 		await axios
 			.get("https://api.spotify.com/v1/search?" + parameters, config)
 			.then(function (response) {
-				commit('setArtists', response.data.artists.items);
+				if (overrideData) {
+					commit('setArtists', response.data.artists.items);
+				}
+				else {
+					// Used in "scroll down to load more"
+					if (response.data.artists.items.length == 0) {
+						commit('setNoMoreArtistsFound', true)
+					}
+					else {
+						commit('addArtists', response.data.artists.items);
+					}
+				}
 			})
 			.catch(function (error) {
-				commit('setArtists', null);
+				if (!offset) {
+					// Clear items when error happens, only if it's a new search (not scrolling down)
+					commit('setArtists', null);
+				}
 				dispatch('handleApiError', error)
 			})
 			.then(() => {
 				dispatch("stopLoader");
+				commit('setIsGettingArtists', false)
 			});
 	},
 	// Albums
-	async getArtistAlbums({ commit, dispatch }, artistId) {
+	async getArtistAlbums({ commit, dispatch }, { artistId, offset, overrideData = true }) {
 		dispatch("startLoader");
+
+		commit('setIsGettingArtistAlbums', true)
+		commit('setNoMoreArtistAlbumsFound', false)
+
+		let parameters = new URLSearchParams({
+			offset: offset || 0,
+		}).toString();
 
 		let config = {
 			headers: {
@@ -161,15 +186,27 @@ export default {
 			},
 		};
 		axios
-			.get(`https://api.spotify.com/v1/artists/${artistId}/albums`, config)
+			.get(`https://api.spotify.com/v1/artists/${artistId}/albums?${parameters}`, config)
 			.then(function (response) {
-				commit('setCurrentArtistAlbums', response.data.items);
+				if (overrideData) {
+					commit('setCurrentArtistAlbums', response.data.items);
+				}
+				else {
+					// Used in "scroll down to load more"
+					if (response.data.items.length == 0) {
+						commit('setNoMoreArtistAlbumsFound', true)
+					}
+					else {
+						commit('addCurrentArtistAlbums', response.data.items);
+					}
+				}
 			})
 			.catch(function (error) {
 				dispatch('handleApiError', error)
 			})
 			.then(() => {
 				dispatch("stopLoader");
+				commit('setIsGettingArtistAlbums', false)
 			});
 	},
 	// Other

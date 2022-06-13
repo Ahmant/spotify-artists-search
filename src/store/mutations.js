@@ -31,12 +31,30 @@ export default {
 	setArtists(state, artists) {
 		state.artists = artists
 	},
+	addArtists(state, artists) {
+		state.artists = [...state.artists, ...artists]
+	},
 	setCurrentArtist(state, artist) {
 		state.currentArtist = artist
+	},
+	setIsGettingArtists(state, status) {
+		state.isGettingArtists = status
+	},
+	setNoMoreArtistsFound(state, status) {
+		state.noMoreArtistsFound = status
 	},
 	// Albums
 	setCurrentArtistAlbums(state, albums) {
 		state.currentArtistAlbums = albums
-	}
+	},
+	addCurrentArtistAlbums(state, albums) {
+		state.currentArtistAlbums = [...state.currentArtistAlbums, ...albums];
+	},
+	setIsGettingArtistAlbums(state, status) {
+		state.isGettingArtistAlbums = status
+	},
+	setNoMoreArtistAlbumsFound(state, status) {
+		state.noMoreArtistAlbumsFound = status
+	},
 	// Other
 }

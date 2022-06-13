@@ -8,6 +8,10 @@ export default {
 	artistsSearchText: '',
 	artists: null,
 	currentArtist: null,
+	isGettingArtists: false,
+	noMoreArtistsFound: false,
 	// Albums
-	currentArtistAlbums: null
+	currentArtistAlbums: null,
+	isGettingArtistAlbums: false,
+	noMoreArtistAlbumsFound: false,
 }
